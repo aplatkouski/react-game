@@ -17,17 +17,18 @@
     "prettier/prettier",
     "prettier/react"
   ],
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": 11,
-    "sourceType": "module"
+    "sourceType": "module",
+    "babelOptions": {
+      "configFile": "./.babelrc"
+    }
   },
-  "plugins": [
-    "jest",
-    "promise"
-  ],
+  "plugins": ["jest", "promise"],
   "rules": {
     "import/extensions": [
       "error",
@@ -54,10 +55,7 @@
         "indentLogicalExpressions": true
       }
     ],
-    "react/jsx-indent-props": [
-      "error",
-      2
-    ],
+    "react/jsx-indent-props": ["error", 2],
     "react/jsx-max-props-per-line": [
       "error",
       {
@@ -78,10 +76,7 @@
     "react/jsx-filename-extension": [
       "warn",
       {
-        "extensions": [
-          ".jsx",
-          ".tsx"
-        ]
+        "extensions": [".jsx", ".tsx"]
       }
     ],
     "react/jsx-sort-props": [
@@ -119,15 +114,8 @@
       "pragma": "React",
       "version": "detect"
     },
-    "propWrapperFunctions": [
-      "forbidExtraProps",
-      "exact",
-      "Object.freeze"
-    ],
-    "import/ignore": [
-      "node_modules",
-      "\\.(scss|css|svg|json)$"
-    ],
+    "propWrapperFunctions": ["forbidExtraProps", "exact", "Object.freeze"],
+    "import/ignore": ["node_modules", "\\.(scss|css|svg|json)$"],
     "jest": {
       "version": 26
     }
