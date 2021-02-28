@@ -2,10 +2,15 @@
   "name": "react-game",
   "version": "0.0.1",
   "description": "Reversi is a strategy board game for two players who take turns marking the spaces in an 8x8 board.",
-  "main": "src/index.js",
+  "main": "src/index.jsx",
   "dependencies": {
     "@testing-library/jest-dom": "5.11.9",
-    "@testing-library/react": "11.2.5"
+    "@testing-library/react": "11.2.5",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "react-redux": "7.2.2",
+    "redux": "4.0.5",
+    "redux-thunk": "2.3.0"
   },
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
