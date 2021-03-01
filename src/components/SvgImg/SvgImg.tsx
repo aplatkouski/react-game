@@ -1,0 +1,30 @@
+import { Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/styles';
+import * as React from 'react';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      height: theme.spacing(2),
+      objectFit: 'fill',
+      width: 'auto',
+      '&:hover': {
+        transform: 'scale(1.4)',
+      },
+    },
+  })
+);
+
+interface Props {
+  alt: string;
+  src: string;
+  title: string;
+}
+
+const SvgImg = ({ alt, src, title }: Props): JSX.Element => {
+  const classes = useStyles();
+
+  return <img alt={alt} className={classes.root} src={src} title={title} />;
+};
+
+export default SvgImg;
