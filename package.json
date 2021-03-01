@@ -18,7 +18,7 @@
     "build": "webpack --config webpack.config.prod.js",
     "build:stats": "webpack --config webpack.config.prod.js --profile --json > stats.json && webpack-bundle-analyzer stats.json dist/",
     "build:watch": "npm run build -- --watch",
-    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx --ignore-pattern '*.config*.js' --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix",
     "lint:scss": "stylelint --syntax scss './src/**/*.scss' --ignore-path .gitignore",
     "lint:scss:fix": "npm run lint:scss -- --fix",
