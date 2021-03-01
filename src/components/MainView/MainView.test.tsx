@@ -6,5 +6,5 @@ import MainView from './MainView';
 test('renders MainView', () => {
   const { getByText } = render(<MainView />);
 
-  expect(getByText(/Hello world!/i)).toBeInTheDocument();
+  expect(getByText(/Reversi game/i)).toBeInTheDocument();
 });
