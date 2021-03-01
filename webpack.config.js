@@ -19,7 +19,7 @@ module.exports = {
     descriptionFiles: ['package.json'],
     modules: ['node_modules'],
     plugins: [new TsconfigPathsPlugin()],
-    extensions: ['.ts', '.tsx', '.json', '.svg'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.svg'],
   },
   devtool: 'inline-source-map',
   watch: true,

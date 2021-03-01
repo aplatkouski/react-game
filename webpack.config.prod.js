@@ -18,7 +18,7 @@ module.exports = {
     descriptionFiles: ['package.json'],
     modules: ['node_modules'],
     plugins: [new TsconfigPathsPlugin()],
-    extensions: ['.ts', '.tsx', '.json', '.svg'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.svg'],
   },
   output: {
     assetModuleFilename: 'assets/[hash][ext][query]',
