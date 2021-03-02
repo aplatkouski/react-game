@@ -1,11 +1,7 @@
-export enum MARK {
-  X = -1,
-  EMPTY,
-  O,
-}
+import MARK from 'Entities/mark';
 
 interface ICell {
-  coordinate: [number, number];
+  index: number;
   mark: MARK;
 }
 

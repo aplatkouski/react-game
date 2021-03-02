@@ -1,6 +1,7 @@
+import { createStyles, makeStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
-import { createStyles, makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
+import MARK from 'Entities/mark';
 import * as React from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,17 +28,17 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  color: string;
+  mark: MARK;
 }
 
-const Mark = ({ color }: Props): JSX.Element => {
+const Mark = ({ mark }: Props): JSX.Element => {
   const classes = useStyles();
 
   return (
     <div
       className={clsx(classes.root, {
-        [classes.dark]: color === 'dark',
-        [classes.white]: color === 'white',
+        [classes.dark]: mark === MARK.O,
+        [classes.white]: mark === MARK.X,
       })}
     />
   );

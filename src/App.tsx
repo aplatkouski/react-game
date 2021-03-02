@@ -1,10 +1,11 @@
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
-
 import Footer from 'Components/Footer';
 import MainView from 'Components/MainView';
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from 'States/root-store';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -20,13 +21,15 @@ const App = (): JSX.Element => {
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <MainView />
-        <Footer />
-      </div>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <div className={classes.root}>
+          <CssBaseline />
+          <MainView />
+          <Footer />
+        </div>
+      </ThemeProvider>
+    </Provider>
   );
 };
 
