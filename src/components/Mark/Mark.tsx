@@ -1,4 +1,4 @@
-import { createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles, useTheme, Zoom } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import MARK from 'Entities/mark';
@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
       borderStyle: 'solid',
       borderRadius: '50%',
       margin: theme.spacing(0.5),
+      '&:hover': {
+        borderWidth: theme.spacing(0.5),
+      },
     },
     dark: {
       backgroundColor: theme.palette.primary.dark,
@@ -33,14 +36,29 @@ interface Props {
 
 const Mark = ({ mark }: Props): JSX.Element => {
   const classes = useStyles();
+  const theme = useTheme();
+
+  const transitionDuration = {
+    enter: theme.transitions.duration.enteringScreen,
+    exit: theme.transitions.duration.leavingScreen,
+  };
 
   return (
-    <div
-      className={clsx(classes.root, {
-        [classes.dark]: mark === MARK.O,
-        [classes.white]: mark === MARK.X,
-      })}
-    />
+    <Zoom
+      in
+      style={{
+        transitionDelay: `${transitionDuration.exit}ms`,
+      }}
+      timeout={transitionDuration}
+      unmountOnExit
+    >
+      <div
+        className={clsx(classes.root, {
+          [classes.dark]: mark === MARK.O,
+          [classes.white]: mark === MARK.X,
+        })}
+      />
+    </Zoom>
   );
 };
 
