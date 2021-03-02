@@ -1,6 +1,7 @@
 import { Grid } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Mark from 'Components/Mark';
+import ICell from 'Entities/cell';
 import MARK from 'Entities/mark';
 import * as React from 'react';
 
@@ -14,20 +15,30 @@ const useStyles = makeStyles((theme: Theme) =>
       borderStyle: 'solid',
       paddingBottom: '12.5%',
       position: 'relative',
+      '&:hover': {
+        backgroundColor: theme.palette.success.light,
+      },
     },
   })
 );
 
 interface Props {
-  mark: MARK;
+  cell: ICell;
+  onClick: (index: number) => void;
 }
 
-const Cell = ({ mark }: Props): JSX.Element => {
+const Cell = ({ cell, onClick: handleClick }: Props): JSX.Element => {
   const classes = useStyles();
 
+  const markCell = () => {
+    if (cell.mark === MARK.EMPTY) {
+      handleClick(cell.index);
+    }
+  };
+
   return (
-    <Grid className={classes.item} color="primary" item xs={2}>
-      {mark !== MARK.EMPTY ? <Mark mark={mark} /> : null}
+    <Grid className={classes.item} color="primary" item onClick={() => markCell()} xs={2}>
+      {cell.mark !== MARK.EMPTY ? <Mark mark={cell.mark} /> : null}
     </Grid>
   );
 };

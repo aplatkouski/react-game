@@ -1,13 +1,24 @@
 import { Grid } from '@material-ui/core';
 import Cell from 'Components/Cell';
 import ICell from 'Entities/cell';
+import MARK from 'Entities/mark';
 import * as React from 'react';
+import * as StateTypes from 'States/types';
 
 interface Props {
   cells: Array<ICell>;
+  currentMark: MARK;
+  move: (cell: ICell) => StateTypes.IAction<ICell>;
 }
 
-const Gameboard = ({ cells }: Props): JSX.Element => {
+const Gameboard = ({ cells, currentMark, move }: Props): JSX.Element => {
+  const handleClick = (index: number) => {
+    move({
+      index,
+      mark: currentMark,
+    });
+  };
+
   const renderRows = () => {
     const SIZE = 8;
     return [...Array(SIZE).keys()].map((key) => {
@@ -23,7 +34,7 @@ const Gameboard = ({ cells }: Props): JSX.Element => {
           {cells
             .filter((c) => Math.floor(c.index / SIZE) === key)
             .map((cell) => (
-              <Cell key={`cell-${cell.index}`} mark={cell.mark} />
+              <Cell key={`cell-${cell.index}`} cell={cell} onClick={handleClick} />
             ))}
         </Grid>
       );
