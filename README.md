@@ -62,7 +62,7 @@
       например, 3d игра, написана логика для компьютерного противника, есть сетевой режим
       игры, и т.д.
 
-[развернуть во весь экран]: (https://html5.by/blog/fullscreen-javascript-api/
+[развернуть во весь экран]: https://html5.by/blog/fullscreen-javascript-api/
 [логотип курса]: https://rs.school/images/rs_school_js.svg
 [ссылка на курс]: https://rs.school/js/
 [react game]: https://github.com/rolling-scopes-school/tasks/blob/master/tasks/react/react-game.md
