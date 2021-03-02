@@ -4,7 +4,8 @@ import * as StateTypes from 'States/types';
 import Gameboard from './Gameboard';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
-  cells: state.reversi.cells,
+  cells: state.gameboard.cells,
+  currentMark: state.game.currentPlayerMark,
 });
 
 const mapDispatchToProps = {
