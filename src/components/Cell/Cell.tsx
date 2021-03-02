@@ -43,4 +43,4 @@ const Cell = ({ cell, onClick: handleClick }: Props): JSX.Element => {
   );
 };
 
-export default Cell;
+export default React.memo(Cell);
