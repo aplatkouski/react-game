@@ -1,7 +1,7 @@
-import MainView from 'Components/MainView/MainView';
 import { connect } from 'react-redux';
 import { gameActions } from 'States/game';
 import * as StateTypes from 'States/types';
+import MainView from './MainView';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
   availableCellIndexes: state.gameboard.availableMoves,

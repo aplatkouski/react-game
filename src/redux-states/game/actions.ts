@@ -1,3 +1,4 @@
+import { IGameState } from 'States/game/model';
 import * as StateTypes from 'States/types';
 import * as t from './action-types';
 
@@ -24,4 +25,9 @@ export const skip = (): StateTypes.IAction<undefined> => ({
 export const setNoMoreMoves = (): StateTypes.IAction<undefined> => ({
   type: t.NO_MORE_MOVES,
   payload: undefined,
+});
+
+export const loadState = (newState: IGameState): StateTypes.IAction<IGameState> => ({
+  type: t.LOAD_STATE,
+  payload: newState,
 });

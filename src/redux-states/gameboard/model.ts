@@ -4,9 +4,9 @@ import Score from 'Entities/score';
 import Gameboard from '../../Gameboard';
 
 export interface IGameboardState {
+  availableMoves: AvailableCellIndexes;
   cells: Array<ICell>;
   gameboard: Gameboard;
   isActive: boolean;
-  availableMoves: AvailableCellIndexes;
   score: Score;
 }

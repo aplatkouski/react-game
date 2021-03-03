@@ -1,7 +1,7 @@
-import FinishGameModal from 'Components/FinishGameModal/FinishGameModal';
 import { connect } from 'react-redux';
 import { gameActions } from 'States/game';
 import * as StateTypes from 'States/types';
+import FinishGameModal from './FinishGameModal';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
   noMoreMoves: state.game.noMoreMoves,

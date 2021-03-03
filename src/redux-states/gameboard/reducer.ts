@@ -17,6 +17,21 @@ const initialState: IGameboardState = {
 };
 
 const handlers: StateTypes.IHandlers<IGameboardState, any> = {
+  [t.CLEAN]: (state) => ({
+    ...state,
+    cells: getEmptyCells(),
+    isActive: false,
+    availableMoves: {} as AvailableCellIndexes,
+    score: [0, 0],
+  }),
+  [t.LOAD_STATE]: (
+    state,
+    { payload: newState }: StateTypes.IAction<Omit<IGameboardState, 'gameboard'>>
+  ) => ({
+    ...state,
+    gameboard: new Gameboard(),
+    ...newState,
+  }),
   [t.MOVE]: (state, { payload: markedIndexes }: StateTypes.IAction<MarkedIndexes>) => {
     const currentPlayerMark = markedIndexes.mark;
     const cells = [...state.cells];
@@ -63,13 +78,6 @@ const handlers: StateTypes.IHandlers<IGameboardState, any> = {
       score,
     };
   },
-  [t.CLEAN]: (state) => ({
-    ...state,
-    cells: getEmptyCells(),
-    isActive: false,
-    availableMoves: {} as AvailableCellIndexes,
-    score: [0, 0],
-  }),
   DEFAULT: (state) => state,
 };
 
