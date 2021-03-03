@@ -1,3 +1,3 @@
-import LongMenu from './LongMenu';
+import LongMenu from './LongMenuContainer';
 
 export default LongMenu;

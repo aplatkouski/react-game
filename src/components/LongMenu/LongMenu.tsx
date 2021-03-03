@@ -3,10 +3,15 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as React from 'react';
+import * as StateTypes from 'States/types';
 
 const ITEM_HEIGHT = 48;
 
-const LongMenu = (): JSX.Element => {
+interface Props {
+  onShowStats: () => StateTypes.IAction<undefined>;
+}
+
+const LongMenu = ({ onShowStats }: Props): JSX.Element => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -41,7 +46,13 @@ const LongMenu = (): JSX.Element => {
         onClose={handleClose}
         open={open}
       >
-        <MenuItem key="Stats" onClick={handleClose}>
+        <MenuItem
+          key="Stats"
+          onClick={() => {
+            handleClose();
+            onShowStats();
+          }}
+        >
           Stats
         </MenuItem>
         <MenuItem key="Hot-keys" onClick={handleClose}>

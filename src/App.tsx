@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 import FinishGameModal from 'Components/FinishGameModal';
 import Footer from 'Components/Footer';
 import MainView from 'Components/MainView';
+import StatsModal from 'Components/StatsModal';
 import React, { useEffect, useRef } from 'react';
 import { IGameState } from 'States/game/model';
 import { IGameboardState } from 'States/gameboard/model';
@@ -72,6 +73,7 @@ const App = ({
       <div className={classes.root}>
         <CssBaseline />
         <FinishGameModal />
+        <StatsModal />
         <MainView />
         <Footer />
       </div>

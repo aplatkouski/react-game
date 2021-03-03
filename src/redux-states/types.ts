@@ -1,6 +1,7 @@
 import { ThunkDispatch } from 'redux-thunk';
 import { IGameState } from 'States/game/model';
 import { IGameboardState } from 'States/gameboard/model';
+import { IStatsState } from 'States/stats/model';
 
 export interface IAction<P> {
   type: string;
@@ -21,6 +22,7 @@ export type AsyncDispatch<T, P> = (
 ) => Promise<void>;
 
 export interface RootState {
-  gameboard: IGameboardState;
   game: IGameState;
+  gameboard: IGameboardState;
+  stats: IStatsState;
 }
