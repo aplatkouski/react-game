@@ -29,8 +29,8 @@ interface Props {
   gameWasSkipped: boolean;
   isActiveGame: boolean;
   score: Score;
+  setNoMoreMoves: () => StateTypes.IAction<undefined>;
   skipMove: () => StateTypes.IAction<undefined>;
-  stopGame: () => StateTypes.IAction<undefined>;
 }
 
 const MainView = ({
@@ -39,14 +39,14 @@ const MainView = ({
   gameWasSkipped,
   isActiveGame,
   score,
+  setNoMoreMoves,
   skipMove,
-  stopGame,
 }: Props): JSX.Element => {
   const classes = useStyles();
 
   if (isActiveGame && !Object.keys(availableCellIndexes).length) {
     if (gameWasSkipped) {
-      stopGame();
+      setNoMoreMoves();
     } else {
       skipMove();
     }

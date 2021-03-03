@@ -1,6 +1,7 @@
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
+import FinishGameModal from 'Components/FinishGameModal';
 import Footer from 'Components/Footer';
 import MainView from 'Components/MainView';
 import React from 'react';
@@ -25,6 +26,7 @@ const App = (): JSX.Element => {
       <ThemeProvider theme={theme}>
         <div className={classes.root}>
           <CssBaseline />
+          <FinishGameModal />
           <MainView />
           <Footer />
         </div>

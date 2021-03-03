@@ -4,4 +4,5 @@ export interface IGameState {
   currentPlayerMark: MARK;
   isActive: boolean;
   mustSkip: boolean;
+  noMoreMoves: boolean;
 }

@@ -12,8 +12,8 @@ const mapStateToProps = (state: StateTypes.RootState) => ({
 });
 
 const mapDispatchToProps = {
+  setNoMoreMoves: gameActions.setNoMoreMoves,
   skipMove: gameActions.skip,
-  stopGame: gameActions.stop,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainView);

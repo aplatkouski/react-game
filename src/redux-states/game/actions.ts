@@ -20,3 +20,8 @@ export const skip = (): StateTypes.IAction<undefined> => ({
   type: t.SKIP,
   payload: undefined,
 });
+
+export const setNoMoreMoves = (): StateTypes.IAction<undefined> => ({
+  type: t.NO_MORE_MOVES,
+  payload: undefined,
+});

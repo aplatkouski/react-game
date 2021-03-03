@@ -7,6 +7,7 @@ const initialState: IGameState = {
   currentPlayerMark: MARK.X,
   isActive: false,
   mustSkip: false,
+  noMoreMoves: false,
 };
 
 const handlers: StateTypes.IHandlers<IGameState, any> = {
@@ -17,7 +18,10 @@ const handlers: StateTypes.IHandlers<IGameState, any> = {
   [t.START]: (state) => ({
     ...state,
     isActive: true,
-    mustSkip: false,
+  }),
+  [t.NO_MORE_MOVES]: (state) => ({
+    ...state,
+    noMoreMoves: true,
   }),
   [t.SKIP]: (state) => ({
     ...state,
