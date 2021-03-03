@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, createStyles, makeStyles } from '@material-ui/core';
+import { Button, createStyles, makeStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
 import MARK from 'Entities/mark';
 import * as React from 'react';
@@ -45,14 +45,9 @@ const Buttons = ({
     startGame();
   };
 
-  return (
-    <ButtonGroup
-      aria-label="outlined primary button group"
-      className={classes.root}
-      color="primary"
-      variant="contained"
-    >
-      {isActiveGame ? (
+  const renderButton = () => {
+    if (isActiveGame) {
+      return (
         <Button
           className={classes.startStopGameButton}
           color="secondary"
@@ -60,18 +55,20 @@ const Buttons = ({
         >
           Stop Game
         </Button>
-      ) : (
-        <Button
-          className={classes.startStopGameButton}
-          color="primary"
-          onClick={() => handleStartGame()}
-        >
-          New Game
-        </Button>
-      )}
-      <Button>Two</Button>
-    </ButtonGroup>
-  );
+      );
+    }
+    return (
+      <Button
+        className={classes.startStopGameButton}
+        color="primary"
+        onClick={() => handleStartGame()}
+      >
+        New Game
+      </Button>
+    );
+  };
+
+  return renderButton();
 };
 
 export default Buttons;

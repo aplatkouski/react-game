@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Buttons from 'Components/Buttons';
 import FullscreenButton from 'Components/FullscreenButton';
 import Gameboard from 'Components/Gameboard';
+import LongMenu from 'Components/LongMenu';
 import AvailableCellIndexes from 'Entities/available-moves';
 import MARK from 'Entities/mark';
 import Score from 'Entities/score';
@@ -70,7 +71,7 @@ const MainView = ({
         Reversi game
         {isActiveGame ? renderScore() : '!'}
       </Typography>
-      <Grid container direction="row" wrap="nowrap">
+      <Grid container direction="row" justify="space-between" wrap="nowrap">
         <Buttons />
         {isActiveGame && (
           <Typography
@@ -85,6 +86,7 @@ const MainView = ({
             {`${currentPlayerMark === 1 ? 'First' : 'Second'} player`}
           </Typography>
         )}
+        <LongMenu />
       </Grid>
       <Gameboard />
     </Container>
