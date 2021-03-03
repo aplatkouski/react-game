@@ -1,19 +1,22 @@
 import { connect } from 'react-redux';
-import { gameActions } from 'States/game';
+import { gameboardActions } from 'States/gameboard';
+import { statsActions } from 'States/stats';
 import * as StateTypes from 'States/types';
 import MainView from './MainView';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
   availableCellIndexes: state.gameboard.availableMoves,
-  currentPlayerMark: state.game.currentPlayerMark,
-  gameWasSkipped: state.game.mustSkip,
-  isActiveGame: state.game.isActive,
+  currentPlayerMark: state.gameboard.currentPlayerMark,
+  gameIsActive: state.gameboard.isActive,
+  moveWasSkipped: state.gameboard.moveWasSkipped,
+  noMoreMoves: state.gameboard.noMoreMoves,
   score: state.gameboard.score,
 });
 
 const mapDispatchToProps = {
-  setNoMoreMoves: gameActions.setNoMoreMoves,
-  skipMove: gameActions.skip,
+  saveRecord: statsActions.saveRecord,
+  setNoMoreMoves: gameboardActions.setNoMoreMoves,
+  skipMove: gameboardActions.skipMove,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainView);

@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { gameActions } from 'States/game';
 import { gameboardActions } from 'States/gameboard';
 import * as StateTypes from 'States/types';
 import Gameboard from './Gameboard';
@@ -7,16 +6,12 @@ import Gameboard from './Gameboard';
 const mapStateToProps = (state: StateTypes.RootState) => ({
   availableCellIndexes: state.gameboard.availableMoves,
   cells: state.gameboard.cells,
-  currentMark: state.game.currentPlayerMark,
-  gameWasSkipped: state.game.mustSkip,
-  isActiveGame: state.game.isActive,
+  currentMark: state.gameboard.currentPlayerMark,
 });
 
 const mapDispatchToProps = {
   move: gameboardActions.move,
-  rotatePlayer: gameActions.rotatePlayer,
-  skipMove: gameActions.skip,
-  stopGame: gameActions.stop,
+  rotatePlayer: gameboardActions.rotatePlayer,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Gameboard);

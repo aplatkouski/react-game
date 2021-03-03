@@ -6,7 +6,6 @@ import Footer from 'Components/Footer';
 import MainView from 'Components/MainView';
 import StatsModal from 'Components/StatsModal';
 import React, { useEffect, useRef } from 'react';
-import { IGameState } from 'States/game/model';
 import { IGameboardState } from 'States/gameboard/model';
 import * as StateTypes from 'States/types';
 
@@ -19,9 +18,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface Props {
-  gameState: IGameState;
   gameboardState: IGameboardState;
-  loadGameState: (newState: IGameState) => StateTypes.IAction<IGameState>;
   loadGameboardState: (
     newState: Omit<IGameboardState, 'gameboard'>
   ) => StateTypes.IAction<Omit<IGameboardState, 'gameboard'>>;
@@ -29,12 +26,7 @@ interface Props {
 
 const theme = createMuiTheme({});
 
-const App = ({
-  gameState,
-  gameboardState,
-  loadGameState,
-  loadGameboardState,
-}: Props): JSX.Element => {
+const App = ({ gameboardState, loadGameboardState }: Props): JSX.Element => {
   const classes = useStyles();
 
   const useFirstRender = () => {
@@ -51,22 +43,17 @@ const App = ({
 
   useEffect(() => {
     if (firstRender) {
-      const gameLoadedState = JSON.parse(
-        localStorage.getItem('gameState') || ''
-      ) as IGameState;
       const gameboardLoadedState = JSON.parse(
-        localStorage.getItem('gameboardState') || ''
+        localStorage.getItem('gameboardState') || '{}'
       ) as IGameboardState;
-      if (gameboardLoadedState && gameLoadedState) {
-        loadGameState(gameLoadedState);
+      if (Object.keys(gameboardLoadedState).length) {
         loadGameboardState(gameboardLoadedState);
       }
     } else {
       const { gameboard, ...rest } = gameboardState;
       localStorage.setItem('gameboardState', JSON.stringify({ ...rest }));
-      localStorage.setItem('gameState', JSON.stringify(gameState));
     }
-  }, [firstRender, gameboardState, gameState, loadGameState, loadGameboardState]);
+  }, [firstRender, gameboardState, loadGameboardState]);
 
   return (
     <ThemeProvider theme={theme}>

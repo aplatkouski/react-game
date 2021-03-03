@@ -4,6 +4,21 @@ import { IGameboardState } from 'States/gameboard/model';
 import * as StateTypes from 'States/types';
 import * as t from './action-types';
 
+export const setNoMoreMoves = (): StateTypes.IAction<undefined> => ({
+  type: t.NO_MORE_MOVES,
+  payload: undefined,
+});
+
+export const rotatePlayer = (): StateTypes.IAction<undefined> => ({
+  type: t.ROTATE_PLAYER,
+  payload: undefined,
+});
+
+export const skipMove = (): StateTypes.IAction<undefined> => ({
+  type: t.SKIP_MOVE,
+  payload: undefined,
+});
+
 export const move = (
   markedIndexes: MarkedIndexes
 ): StateTypes.IAction<MarkedIndexes> => ({
@@ -11,14 +26,19 @@ export const move = (
   payload: markedIndexes,
 });
 
-export const init = (mark: MARK): StateTypes.IAction<MARK> => ({
-  type: t.NEW_GAME,
-  payload: mark,
+export const start = (): StateTypes.IAction<undefined> => ({
+  type: t.START_NEW_GAME,
+  payload: undefined,
 });
 
-export const clean = (): StateTypes.IAction<undefined> => ({
-  type: t.CLEAN,
+export const stop = (): StateTypes.IAction<undefined> => ({
+  type: t.STOP_GAME,
   payload: undefined,
+});
+
+export const updateAvailableMoves = (playerMark: MARK): StateTypes.IAction<MARK> => ({
+  type: t.UPDATE_AVAILABLE_MOVES,
+  payload: playerMark,
 });
 
 export const loadState = (

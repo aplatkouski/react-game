@@ -9,21 +9,25 @@ import * as t from './action-types';
 import { IGameboardState } from './model';
 
 const initialState: IGameboardState = {
-  gameboard: new Gameboard(),
-  cells: getEmptyCells(),
-  isActive: false,
   availableMoves: {} as AvailableCellIndexes,
+  cells: getEmptyCells(),
+  currentPlayerMark: MARK.X,
+  gameboard: new Gameboard(),
+  isActive: false,
+  moveWasSkipped: false,
+  noMoreMoves: false,
   score: [0, 0] as Score,
 };
 
 const handlers: StateTypes.IHandlers<IGameboardState, any> = {
-  [t.CLEAN]: (state) => ({
-    ...state,
-    cells: getEmptyCells(),
-    isActive: false,
-    availableMoves: {} as AvailableCellIndexes,
-    score: [0, 0],
-  }),
+  [t.STOP_GAME]: (state) => {
+    const { gameboard, cells, ...restInitialState } = initialState;
+    return {
+      ...state,
+      cells: getEmptyCells(),
+      ...restInitialState,
+    };
+  },
   [t.LOAD_STATE]: (
     state,
     { payload: newState }: StateTypes.IAction<Omit<IGameboardState, 'gameboard'>>
@@ -59,8 +63,30 @@ const handlers: StateTypes.IHandlers<IGameboardState, any> = {
       score,
     };
   },
-  [t.NEW_GAME]: (state, { payload: playerMark }: StateTypes.IAction<MARK>) => {
+  [t.NO_MORE_MOVES]: (state) => ({
+    ...state,
+    noMoreMoves: true,
+  }),
+  [t.ROTATE_PLAYER]: (state) => ({
+    ...state,
+    currentPlayerMark: state.currentPlayerMark === MARK.X ? MARK.O : MARK.X,
+  }),
+  [t.SKIP_MOVE]: (state) => {
+    const currentPlayerMark = state.currentPlayerMark === MARK.X ? MARK.O : MARK.X;
+    const availableMoves = state.gameboard.getAvailableMoves({
+      cells: state.cells,
+      playerMark: currentPlayerMark,
+    });
+    return {
+      ...state,
+      availableMoves,
+      currentPlayerMark,
+      moveWasSkipped: true,
+    };
+  },
+  [t.START_NEW_GAME]: (state) => {
     const cells = getInitialCells();
+    const playerMark = state.currentPlayerMark;
     const availableMoves = state.gameboard.getAvailableMoves({
       cells,
       playerMark,

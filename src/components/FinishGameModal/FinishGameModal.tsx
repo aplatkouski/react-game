@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Score from 'Entities/score';
 import * as React from 'react';
 import * as StateTypes from 'States/types';
+import getEndGameMessage from 'Utils/get-end-game-message';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,15 +38,6 @@ interface Props {
 const FinishGameModal = ({ noMoreMoves, score, stopGame }: Props): JSX.Element => {
   const classes = useStyles();
 
-  let message: string;
-  if (score[0] === score[1]) {
-    message = 'Draw!';
-  } else if (score[0] > score[1]) {
-    message = 'First player win!';
-  } else {
-    message = 'Second player win!';
-  }
-
   return (
     <Modal
       BackdropComponent={Backdrop}
@@ -68,7 +60,7 @@ const FinishGameModal = ({ noMoreMoves, score, stopGame }: Props): JSX.Element =
       >
         <div className={classes.paper}>
           <h2 id="modal-title">Game is finished!</h2>
-          <p id="modal-description">{message}</p>
+          <p id="modal-description">{getEndGameMessage(score[0], score[1])}</p>
         </div>
       </Grow>
     </Modal>
