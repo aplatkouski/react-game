@@ -1,3 +1,4 @@
+import MARK from 'Entities/mark';
 import MarkedIndexes from 'Entities/marked-indexes';
 import * as StateTypes from 'States/types';
 import * as t from './action-types';
@@ -9,9 +10,9 @@ export const move = (
   payload: markedIndexes,
 });
 
-export const init = (): StateTypes.IAction<undefined> => ({
+export const init = (mark: MARK): StateTypes.IAction<MARK> => ({
   type: t.NEW_GAME,
-  payload: undefined,
+  payload: mark,
 });
 
 export const clean = (): StateTypes.IAction<undefined> => ({

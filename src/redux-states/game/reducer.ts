@@ -6,6 +6,7 @@ import { IGameState } from './model';
 const initialState: IGameState = {
   currentPlayerMark: MARK.X,
   isActive: false,
+  mustSkip: false,
 };
 
 const handlers: StateTypes.IHandlers<IGameState, any> = {
@@ -16,10 +17,17 @@ const handlers: StateTypes.IHandlers<IGameState, any> = {
   [t.START]: (state) => ({
     ...state,
     isActive: true,
+    mustSkip: false,
   }),
-  [t.START]: (state) => ({
+  [t.SKIP]: (state) => ({
+    ...state,
+    currentPlayerMark: state.currentPlayerMark === MARK.X ? MARK.O : MARK.X,
+    mustSkip: true,
+  }),
+  [t.STOP]: (state) => ({
     ...state,
     isActive: false,
+    mustSkip: false,
   }),
   DEFAULT: (state) => state,
 };

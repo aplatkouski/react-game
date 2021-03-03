@@ -15,3 +15,8 @@ export const stop = (): StateTypes.IAction<undefined> => ({
   type: t.STOP,
   payload: undefined,
 });
+
+export const skip = (): StateTypes.IAction<undefined> => ({
+  type: t.SKIP,
+  payload: undefined,
+});

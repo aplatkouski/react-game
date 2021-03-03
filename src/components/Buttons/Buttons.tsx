@@ -1,17 +1,20 @@
 import { Button, ButtonGroup } from '@material-ui/core';
+import MARK from 'Entities/mark';
 import * as React from 'react';
 import { useState } from 'react';
 import * as StateTypes from 'States/types';
 
 interface Props {
   cleanGameboard: () => StateTypes.IAction<undefined>;
-  initGameboard: () => StateTypes.IAction<undefined>;
+  currentPlayerMark: MARK;
+  initGameboard: (mark: MARK) => StateTypes.IAction<MARK>;
   startGame: () => StateTypes.IAction<undefined>;
   stopGame: () => StateTypes.IAction<undefined>;
 }
 
 const Buttons = ({
   cleanGameboard,
+  currentPlayerMark,
   initGameboard,
   startGame,
   stopGame,
@@ -25,7 +28,7 @@ const Buttons = ({
   };
 
   const handleStartGame = () => {
-    initGameboard();
+    initGameboard(currentPlayerMark);
     startGame();
     setHasActiveGame(true);
   };

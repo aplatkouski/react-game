@@ -13,6 +13,7 @@ interface Props {
   cells: Array<ICell>;
   currentMark: MARK;
   move: (markedIndexes: MarkedIndexes) => StateTypes.IAction<MarkedIndexes>;
+  rotatePlayer: () => StateTypes.IAction<undefined>;
 }
 
 const Gameboard = ({
@@ -20,6 +21,7 @@ const Gameboard = ({
   cells,
   currentMark,
   move,
+  rotatePlayer,
 }: Props): JSX.Element => {
   const handleClick = ({
     currentCellIndex,
@@ -28,6 +30,7 @@ const Gameboard = ({
     currentCellIndex: number;
     enemyIndexes: EnemyCellIndexes;
   }) => {
+    rotatePlayer();
     move({
       indexes: [currentCellIndex, ...enemyIndexes],
       mark: currentMark,
