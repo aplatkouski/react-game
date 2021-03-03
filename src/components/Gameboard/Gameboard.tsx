@@ -16,6 +16,11 @@ interface Props {
   rotatePlayer: () => StateTypes.IAction<undefined>;
 }
 
+interface HandleClickProps {
+  currentCellIndex: number;
+  enemyIndexes: EnemyCellIndexes;
+}
+
 const Gameboard = ({
   availableCellIndexes,
   cells,
@@ -23,13 +28,7 @@ const Gameboard = ({
   move,
   rotatePlayer,
 }: Props): JSX.Element => {
-  const handleClick = ({
-    currentCellIndex,
-    enemyIndexes,
-  }: {
-    currentCellIndex: number;
-    enemyIndexes: EnemyCellIndexes;
-  }) => {
+  const handleClick = ({ currentCellIndex, enemyIndexes }: HandleClickProps) => {
     rotatePlayer();
     move({
       indexes: [currentCellIndex, ...enemyIndexes],
@@ -37,13 +36,10 @@ const Gameboard = ({
     });
   };
 
-  const isAvailable = (cellIndex: number): boolean => {
-    return (
-      Object.keys(availableCellIndexes).findIndex(
-        (availableIndex) => +availableIndex === cellIndex
-      ) >= 0
-    );
-  };
+  const isAvailable = (cellIndex: number): boolean =>
+    Object.keys(availableCellIndexes).findIndex(
+      (availableIndex) => +availableIndex === cellIndex
+    ) >= 0;
 
   const renderRows = () => {
     const SIZE = 8;

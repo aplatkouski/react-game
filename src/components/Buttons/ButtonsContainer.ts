@@ -6,6 +6,7 @@ import Buttons from './Buttons';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
   currentPlayerMark: state.game.currentPlayerMark,
+  isActiveGame: state.game.isActive,
 });
 
 const mapDispatchToProps = {
