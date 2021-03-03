@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface Props {
-  availableCellIndexes: AvailableCellIndexes;
+  availableMoves: AvailableCellIndexes;
   currentPlayerMark: MARK;
   moveWasSkipped: boolean;
   gameIsActive: boolean;
@@ -40,7 +40,7 @@ interface Props {
 }
 
 const MainView = ({
-  availableCellIndexes,
+  availableMoves,
   currentPlayerMark,
   moveWasSkipped,
   gameIsActive,
@@ -52,7 +52,7 @@ const MainView = ({
 }: Props): JSX.Element => {
   const classes = useStyles();
 
-  if (gameIsActive && !Object.keys(availableCellIndexes).length) {
+  if (gameIsActive && !Object.keys(availableMoves).length) {
     if (moveWasSkipped) {
       if (!noMoreMoves) {
         saveRecord({

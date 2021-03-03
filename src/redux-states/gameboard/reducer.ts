@@ -72,15 +72,15 @@ const handlers: StateTypes.IHandlers<IGameboardState, any> = {
     currentPlayerMark: state.currentPlayerMark === MARK.X ? MARK.O : MARK.X,
   }),
   [t.SKIP_MOVE]: (state) => {
-    const currentPlayerMark = state.currentPlayerMark === MARK.X ? MARK.O : MARK.X;
+    const nextPlayerMark = state.currentPlayerMark === MARK.X ? MARK.O : MARK.X;
     const availableMoves = state.gameboard.getAvailableMoves({
       cells: state.cells,
-      playerMark: currentPlayerMark,
+      playerMark: nextPlayerMark,
     });
     return {
       ...state,
       availableMoves,
-      currentPlayerMark,
+      currentPlayerMark: nextPlayerMark,
       moveWasSkipped: true,
     };
   },

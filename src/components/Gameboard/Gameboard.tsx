@@ -9,7 +9,7 @@ import * as React from 'react';
 import * as StateTypes from 'States/types';
 
 interface Props {
-  availableCellIndexes: AvailableCellIndexes;
+  availableMoves: AvailableCellIndexes;
   cells: Array<ICell>;
   currentMark: MARK;
   move: (markedIndexes: MarkedIndexes) => StateTypes.IAction<MarkedIndexes>;
@@ -22,7 +22,7 @@ interface HandleClickProps {
 }
 
 const Gameboard = ({
-  availableCellIndexes,
+  availableMoves,
   cells,
   currentMark,
   move,
@@ -37,7 +37,7 @@ const Gameboard = ({
   };
 
   const isAvailable = (cellIndex: number): boolean =>
-    Object.keys(availableCellIndexes).findIndex(
+    Object.keys(availableMoves).findIndex(
       (availableIndex) => +availableIndex === cellIndex
     ) >= 0;
 
@@ -66,7 +66,7 @@ const Gameboard = ({
                     if (available) {
                       handleClick({
                         currentCellIndex: cell.index,
-                        enemyIndexes: availableCellIndexes[cell.index],
+                        enemyIndexes: availableMoves[cell.index],
                       });
                     }
                   }}

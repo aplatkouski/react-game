@@ -4,7 +4,7 @@ import * as StateTypes from 'States/types';
 import Gameboard from './Gameboard';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
-  availableCellIndexes: state.gameboard.availableMoves,
+  availableMoves: state.gameboard.availableMoves,
   cells: state.gameboard.cells,
   currentMark: state.gameboard.currentPlayerMark,
 });

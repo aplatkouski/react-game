@@ -5,7 +5,7 @@ import * as StateTypes from 'States/types';
 import MainView from './MainView';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
-  availableCellIndexes: state.gameboard.availableMoves,
+  availableMoves: state.gameboard.availableMoves,
   currentPlayerMark: state.gameboard.currentPlayerMark,
   gameIsActive: state.gameboard.isActive,
   moveWasSkipped: state.gameboard.moveWasSkipped,
