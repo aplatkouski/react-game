@@ -26,8 +26,7 @@ const handlers: StateTypes.IHandlers<IGameState, any> = {
   }),
   [t.STOP]: (state) => ({
     ...state,
-    isActive: false,
-    mustSkip: false,
+    ...initialState,
   }),
   DEFAULT: (state) => state,
 };
