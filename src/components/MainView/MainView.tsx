@@ -79,7 +79,7 @@ const MainView = ({
   };
 
   return (
-    <Container className={classes.main} component="main" maxWidth="xs">
+    <Container className={classes.main} component="main" maxWidth="sm">
       <FullscreenButton />
       <Typography component="h1" gutterBottom variant="h5">
         Reversi game
