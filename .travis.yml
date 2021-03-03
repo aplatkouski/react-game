@@ -9,7 +9,7 @@ dist: focal
 
 branches:
   only:
-    - develop
+    - react-game
 
 cache:
   directories:
@@ -32,4 +32,4 @@ deploy:
   github_token: $GITHUB_TOKEN
   local_dir: dist
   on:
-    branch: develop
+    branch: react-game
