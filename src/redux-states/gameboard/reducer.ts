@@ -1,38 +1,14 @@
 import ICell from 'Entities/cell';
-import MARK from 'Entities/mark';
 import * as StateTypes from 'States/types';
+import { getEmptyCells, getInitialCells } from 'Utils/get-cells';
 import Gameboard from '../../Gameboard';
 import * as t from './action-types';
 import { IGameboardState } from './model';
 
-const getInitialCells = (size = 8): Array<ICell> => {
-  const initialCells = [] as Array<ICell>;
-  let cell: ICell;
-  for (let index = 0; index < size ** 2; index += 1) {
-    if (index === 27 || index === 36) {
-      cell = {
-        index,
-        mark: MARK.X,
-      };
-    } else if (index === 28 || index === 35) {
-      cell = {
-        index,
-        mark: MARK.O,
-      };
-    } else {
-      cell = {
-        index,
-        mark: MARK.EMPTY,
-      };
-    }
-    initialCells.push(cell);
-  }
-  return initialCells;
-};
-
 const initialState: IGameboardState = {
   gameboard: new Gameboard(),
-  cells: getInitialCells(),
+  cells: getEmptyCells(),
+  isActive: false,
 };
 
 const handlers: StateTypes.IHandlers<IGameboardState, any> = {
@@ -48,6 +24,16 @@ const handlers: StateTypes.IHandlers<IGameboardState, any> = {
       cells,
     };
   },
+  [t.NEW_GAME]: (state) => ({
+    ...state,
+    cells: getInitialCells(),
+    isActive: true,
+  }),
+  [t.CLEAN]: (state) => ({
+    ...state,
+    cells: getEmptyCells(),
+    isActive: false,
+  }),
   DEFAULT: (state) => state,
 };
 

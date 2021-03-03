@@ -1,5 +1,6 @@
-import { Button, ButtonGroup, Container, Typography } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Buttons from 'Components/Buttons';
 import FullscreenButton from 'Components/FullscreenButton';
 import Gameboard from 'Components/Gameboard';
 import * as React from 'react';
@@ -20,15 +21,7 @@ const MainView = (): JSX.Element => {
       <Typography component="h1" gutterBottom variant="h5">
         Reversi game!
       </Typography>
-      <ButtonGroup
-        aria-label="outlined secondary button group"
-        color="primary"
-        variant="contained"
-      >
-        <Button>New Game</Button>
-        <Button>Two</Button>
-        <Button>Three</Button>
-      </ButtonGroup>
+      <Buttons />
       <Gameboard />
     </Container>
   );
