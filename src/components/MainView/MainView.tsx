@@ -6,6 +6,7 @@ import FullscreenButton from 'Components/FullscreenButton';
 import Gameboard from 'Components/Gameboard';
 import AvailableCellIndexes from 'Entities/available-moves';
 import MARK from 'Entities/mark';
+import Score from 'Entities/score';
 import * as React from 'react';
 import * as StateTypes from 'States/types';
 
@@ -14,13 +15,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
-  playerO: {
-    color: theme.palette.primary.dark,
-    marginLeft: theme.spacing(1),
-  },
   playerX: {
     color: theme.palette.primary.light,
-    marginLeft: theme.spacing(1),
+  },
+  playerO: {
+    color: theme.palette.primary.dark,
   },
 }));
 
@@ -29,6 +28,7 @@ interface Props {
   currentPlayerMark: MARK;
   gameWasSkipped: boolean;
   isActiveGame: boolean;
+  score: Score;
   skipMove: () => StateTypes.IAction<undefined>;
   stopGame: () => StateTypes.IAction<undefined>;
 }
@@ -38,6 +38,7 @@ const MainView = ({
   currentPlayerMark,
   gameWasSkipped,
   isActiveGame,
+  score,
   skipMove,
   stopGame,
 }: Props): JSX.Element => {
@@ -51,19 +52,31 @@ const MainView = ({
     }
   }
 
+  const renderScore = () => {
+    return (
+      <>
+        {': '}
+        <span className={classes.playerX}>{score[0]}</span>
+        {' vs '}
+        <span className={classes.playerO}>{score[1]}</span>
+      </>
+    );
+  };
+
   return (
     <Container className={classes.main} component="main" maxWidth="xs">
       <FullscreenButton />
       <Typography component="h1" gutterBottom variant="h5">
-        Reversi game!
+        Reversi game
+        {isActiveGame ? renderScore() : '!'}
       </Typography>
       <Grid container direction="row" wrap="nowrap">
         <Buttons />
         {isActiveGame && (
           <Typography
             className={clsx({
-              [classes.playerO]: currentPlayerMark === MARK.O,
               [classes.playerX]: currentPlayerMark === MARK.X,
+              [classes.playerO]: currentPlayerMark === MARK.O,
             })}
             component="h5"
             gutterBottom

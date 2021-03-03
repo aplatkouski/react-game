@@ -1,6 +1,7 @@
 import AvailableCellIndexes from 'Entities/available-moves';
 import MARK from 'Entities/mark';
 import MarkedIndexes from 'Entities/marked-indexes';
+import Score from 'Entities/score';
 import * as StateTypes from 'States/types';
 import { getEmptyCells, getInitialCells } from 'Utils/get-cells';
 import Gameboard from '../../Gameboard';
@@ -12,6 +13,7 @@ const initialState: IGameboardState = {
   cells: getEmptyCells(),
   isActive: false,
   availableMoves: {} as AvailableCellIndexes,
+  score: [0, 0] as Score,
 };
 
 const handlers: StateTypes.IHandlers<IGameboardState, any> = {
@@ -30,10 +32,16 @@ const handlers: StateTypes.IHandlers<IGameboardState, any> = {
       cells,
       playerMark: nextPlayerMark,
     });
+
+    const score: Score = [
+      cells.filter((cell) => cell.mark === MARK.X).length,
+      cells.filter((cell) => cell.mark === MARK.O).length,
+    ];
     return {
       ...state,
       cells,
       availableMoves,
+      score,
     };
   },
   [t.NEW_GAME]: (state, { payload: playerMark }: StateTypes.IAction<MARK>) => {
@@ -42,11 +50,17 @@ const handlers: StateTypes.IHandlers<IGameboardState, any> = {
       cells,
       playerMark,
     });
+
+    const score: Score = [
+      cells.filter((cell) => cell.mark === MARK.X).length,
+      cells.filter((cell) => cell.mark === MARK.O).length,
+    ];
     return {
       ...state,
       availableMoves,
       cells,
       isActive: true,
+      score,
     };
   },
   [t.CLEAN]: (state) => ({
@@ -54,6 +68,7 @@ const handlers: StateTypes.IHandlers<IGameboardState, any> = {
     cells: getEmptyCells(),
     isActive: false,
     availableMoves: {} as AvailableCellIndexes,
+    score: [0, 0],
   }),
   DEFAULT: (state) => state,
 };

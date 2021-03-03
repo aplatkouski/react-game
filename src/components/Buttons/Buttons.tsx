@@ -1,7 +1,20 @@
-import { Button, ButtonGroup } from '@material-ui/core';
+import { Button, ButtonGroup, createStyles, makeStyles } from '@material-ui/core';
+import { Theme } from '@material-ui/core/styles';
 import MARK from 'Entities/mark';
 import * as React from 'react';
 import * as StateTypes from 'States/types';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      marginRight: theme.spacing(1),
+    },
+    startStopGameButton: {
+      width: theme.spacing(15),
+      height: theme.spacing(5),
+    },
+  })
+);
 
 interface Props {
   cleanGameboard: () => StateTypes.IAction<undefined>;
@@ -20,6 +33,8 @@ const Buttons = ({
   startGame,
   stopGame,
 }: Props): JSX.Element => {
+  const classes = useStyles();
+
   const handleStopGame = () => {
     cleanGameboard();
     stopGame();
@@ -33,20 +48,28 @@ const Buttons = ({
   return (
     <ButtonGroup
       aria-label="outlined primary button group"
+      className={classes.root}
       color="primary"
       variant="contained"
     >
       {isActiveGame ? (
-        <Button color="secondary" onClick={() => handleStopGame()}>
+        <Button
+          className={classes.startStopGameButton}
+          color="secondary"
+          onClick={() => handleStopGame()}
+        >
           Stop Game
         </Button>
       ) : (
-        <Button color="primary" onClick={() => handleStartGame()}>
+        <Button
+          className={classes.startStopGameButton}
+          color="primary"
+          onClick={() => handleStartGame()}
+        >
           New Game
         </Button>
       )}
       <Button>Two</Button>
-      <Button>Three</Button>
     </ButtonGroup>
   );
 };

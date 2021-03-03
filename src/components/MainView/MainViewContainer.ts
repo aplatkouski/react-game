@@ -8,6 +8,7 @@ const mapStateToProps = (state: StateTypes.RootState) => ({
   currentPlayerMark: state.game.currentPlayerMark,
   gameWasSkipped: state.game.mustSkip,
   isActiveGame: state.game.isActive,
+  score: state.gameboard.score,
 });
 
 const mapDispatchToProps = {
