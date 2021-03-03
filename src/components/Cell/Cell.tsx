@@ -1,5 +1,6 @@
 import { Grid } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import Mark from 'Components/Mark';
 import ICell from 'Entities/cell';
 import MARK from 'Entities/mark';
@@ -15,6 +16,8 @@ const useStyles = makeStyles((theme: Theme) =>
       borderStyle: 'solid',
       paddingBottom: '12.5%',
       position: 'relative',
+    },
+    available: {
       '&:hover': {
         backgroundColor: theme.palette.success.light,
       },
@@ -23,11 +26,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
+  available: boolean;
   cell: ICell;
   onClick: (index: number) => void;
 }
 
-const Cell = ({ cell, onClick: handleClick }: Props): JSX.Element => {
+const Cell = ({ available, cell, onClick: handleClick }: Props): JSX.Element => {
   const classes = useStyles();
 
   const markCell = () => {
@@ -37,7 +41,15 @@ const Cell = ({ cell, onClick: handleClick }: Props): JSX.Element => {
   };
 
   return (
-    <Grid className={classes.item} color="primary" item onClick={() => markCell()} xs={2}>
+    <Grid
+      className={clsx(classes.item, {
+        [classes.available]: available,
+      })}
+      color="primary"
+      item
+      onClick={() => markCell()}
+      xs={2}
+    >
       {cell.mark !== MARK.EMPTY ? <Mark mark={cell.mark} /> : null}
     </Grid>
   );

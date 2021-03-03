@@ -1,22 +1,45 @@
 import { Grid } from '@material-ui/core';
 import Cell from 'Components/Cell';
+import AvailableCellIndexes from 'Entities/available-moves';
 import ICell from 'Entities/cell';
+import EnemyCellIndexes from 'Entities/enemy-cell-indexes';
 import MARK from 'Entities/mark';
+import MarkedIndexes from 'Entities/marked-indexes';
 import * as React from 'react';
 import * as StateTypes from 'States/types';
 
 interface Props {
+  availableCellIndexes: AvailableCellIndexes;
   cells: Array<ICell>;
   currentMark: MARK;
-  move: (cell: ICell) => StateTypes.IAction<ICell>;
+  move: (markedIndexes: MarkedIndexes) => StateTypes.IAction<MarkedIndexes>;
 }
 
-const Gameboard = ({ cells, currentMark, move }: Props): JSX.Element => {
-  const handleClick = (index: number) => {
+const Gameboard = ({
+  availableCellIndexes,
+  cells,
+  currentMark,
+  move,
+}: Props): JSX.Element => {
+  const handleClick = ({
+    currentCellIndex,
+    enemyIndexes,
+  }: {
+    currentCellIndex: number;
+    enemyIndexes: EnemyCellIndexes;
+  }) => {
     move({
-      index,
+      indexes: [currentCellIndex, ...enemyIndexes],
       mark: currentMark,
     });
+  };
+
+  const isAvailable = (cellIndex: number): boolean => {
+    return (
+      Object.keys(availableCellIndexes).findIndex(
+        (availableIndex) => +availableIndex === cellIndex
+      ) >= 0
+    );
   };
 
   const renderRows = () => {
@@ -33,9 +56,24 @@ const Gameboard = ({ cells, currentMark, move }: Props): JSX.Element => {
         >
           {cells
             .filter((c) => Math.floor(c.index / SIZE) === key)
-            .map((cell) => (
-              <Cell key={`cell-${cell.index}`} cell={cell} onClick={handleClick} />
-            ))}
+            .map((cell) => {
+              const available = isAvailable(cell.index);
+              return (
+                <Cell
+                  key={`cell-${cell.index}`}
+                  available={available}
+                  cell={cell}
+                  onClick={() => {
+                    if (available) {
+                      handleClick({
+                        currentCellIndex: cell.index,
+                        enemyIndexes: availableCellIndexes[cell.index],
+                      });
+                    }
+                  }}
+                />
+              );
+            })}
         </Grid>
       );
     });

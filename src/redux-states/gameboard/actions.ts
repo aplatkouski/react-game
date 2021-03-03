@@ -1,10 +1,12 @@
-import ICell from 'Entities/cell';
+import MarkedIndexes from 'Entities/marked-indexes';
 import * as StateTypes from 'States/types';
 import * as t from './action-types';
 
-export const move = (cell: ICell): StateTypes.IAction<ICell> => ({
+export const move = (
+  markedIndexes: MarkedIndexes
+): StateTypes.IAction<MarkedIndexes> => ({
   type: t.MOVE,
-  payload: cell,
+  payload: markedIndexes,
 });
 
 export const init = (): StateTypes.IAction<undefined> => ({

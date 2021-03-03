@@ -6,6 +6,10 @@ import Gameboard from './Gameboard';
 const mapStateToProps = (state: StateTypes.RootState) => ({
   cells: state.gameboard.cells,
   currentMark: state.game.currentPlayerMark,
+  availableCellIndexes: state.gameboard.gameboard.getAvailableMoves({
+    cells: state.gameboard.cells,
+    playerMark: state.game.currentPlayerMark,
+  }),
 });
 
 const mapDispatchToProps = {

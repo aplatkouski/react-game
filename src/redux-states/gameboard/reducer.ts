@@ -1,4 +1,4 @@
-import ICell from 'Entities/cell';
+import MarkedIndexes from 'Entities/marked-indexes';
 import * as StateTypes from 'States/types';
 import { getEmptyCells, getInitialCells } from 'Utils/get-cells';
 import Gameboard from '../../Gameboard';
@@ -7,18 +7,19 @@ import { IGameboardState } from './model';
 
 const initialState: IGameboardState = {
   gameboard: new Gameboard(),
-  cells: getEmptyCells(),
+  cells: getInitialCells(),
   isActive: false,
 };
 
 const handlers: StateTypes.IHandlers<IGameboardState, any> = {
-  [t.MOVE]: (state, { payload: cell }: StateTypes.IAction<ICell>) => {
+  [t.MOVE]: (state, { payload: markedIndexes }: StateTypes.IAction<MarkedIndexes>) => {
     const cells = [...state.cells];
-    cells.splice(
-      state.cells.findIndex((c) => c.index === cell.index),
-      1,
-      cell
-    );
+    markedIndexes.indexes.forEach((index) => {
+      cells.splice(index, 1, {
+        index,
+        mark: markedIndexes.mark,
+      });
+    });
     return {
       ...state,
       cells,

@@ -1,4 +1,8 @@
+import AvailableCellIndexes from 'Entities/available-moves';
+import ICell from 'Entities/cell';
 import ICoordinate from 'Entities/coordinate';
+import EnemyCellIndexes from 'Entities/enemy-cell-indexes';
+import MARK from 'Entities/mark';
 import Offset from 'Entities/offset';
 
 export interface IndexToOffsets {
@@ -63,6 +67,86 @@ class Gameboard {
       x: (index % size) + 1,
       y: size - Math.floor(index / size),
     };
+  };
+
+  getOffsetCellByDirection = ({
+    cells,
+    currentCellIndex,
+    directionIndex,
+  }: {
+    cells: Array<ICell>;
+    currentCellIndex: number;
+    directionIndex: number;
+  }): ICell => {
+    const index = this.offsets[currentCellIndex].findIndex(
+      (offset) => offset.direction === directionIndex
+    );
+    if (index >= 0) {
+      return cells[this.offsets[currentCellIndex][index].index];
+    }
+    return {
+      index: -1,
+      mark: MARK.UNDEFINED,
+    };
+  };
+
+  getMarkedEnemyIndexes = ({
+    cells,
+    startCell,
+    playerMark,
+  }: {
+    cells: Array<ICell>;
+    startCell: ICell;
+    playerMark: MARK;
+  }): EnemyCellIndexes => {
+    const enemyMark = playerMark === MARK.X ? MARK.O : MARK.X;
+    const allEnemyIndexes = [] as EnemyCellIndexes;
+
+    this.offsets[startCell.index].forEach(({ index: offsetIndex, direction }) => {
+      if (cells[offsetIndex].mark === enemyMark) {
+        const enemyIndexes = [offsetIndex];
+        let nextCell: ICell = this.getOffsetCellByDirection({
+          cells,
+          currentCellIndex: offsetIndex,
+          directionIndex: direction,
+        });
+        while (nextCell.mark === enemyMark) {
+          enemyIndexes.push(nextCell.index);
+          nextCell = this.getOffsetCellByDirection({
+            cells,
+            currentCellIndex: nextCell.index,
+            directionIndex: direction,
+          });
+        }
+        if (nextCell.mark === playerMark) {
+          allEnemyIndexes.push(...enemyIndexes);
+        }
+      }
+    });
+    return allEnemyIndexes;
+  };
+
+  getAvailableMoves = ({
+    cells,
+    playerMark,
+  }: {
+    cells: Array<ICell>;
+    playerMark: MARK;
+  }): AvailableCellIndexes => {
+    const availableCellIndexes = {} as AvailableCellIndexes;
+    cells
+      .filter((cell) => cell.mark === MARK.EMPTY)
+      .forEach((cell) => {
+        const markedEnemyIndex = this.getMarkedEnemyIndexes({
+          cells,
+          startCell: cell,
+          playerMark,
+        });
+        if (markedEnemyIndex.length) {
+          availableCellIndexes[cell.index] = markedEnemyIndex;
+        }
+      });
+    return availableCellIndexes;
   };
 
   static getIndexByCoordinate = (coordinate: ICoordinate, size: number): number => {
