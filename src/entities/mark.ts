@@ -1,8 +1,8 @@
 enum MARK {
   UNDEFINED = -1,
   EMPTY,
-  O,
   X,
+  O,
 }
 
 export default MARK;

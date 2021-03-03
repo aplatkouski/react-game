@@ -5,6 +5,7 @@ import * as StateTypes from 'States/types';
 
 const mapStateToProps = (state: StateTypes.RootState) => ({
   availableCellIndexes: state.gameboard.availableMoves,
+  currentPlayerMark: state.game.currentPlayerMark,
   gameWasSkipped: state.game.mustSkip,
   isActiveGame: state.game.isActive,
 });
